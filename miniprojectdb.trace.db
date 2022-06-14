@@ -1,0 +1,9 @@
+2022-06-14 15:54:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM INFORMATION_SCHEMA.ROLES INFORMATION_SCHEMA[*].USERS"; SQL statement:
+SELECT * FROM INFORMATION_SCHEMA.ROLES INFORMATION_SCHEMA.USERS [42000-212]
+2022-06-14 16:11:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+select users0_.id as id1_1_, users0_.email as email2_1_, users0_.nickname as nickname3_1_, users0_.password as password4_1_ from users users0_ where users0_.email=? [42104-212]
+2022-06-14 16:13:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+select users0_.id as id1_1_, users0_.email as email2_1_, users0_.nickname as nickname3_1_, users0_.password as password4_1_ from users users0_ where users0_.email=? [42104-212]
