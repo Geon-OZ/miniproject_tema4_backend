@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
@@ -41,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http.csrf().ignoringAntMatchers("/h2-console/**").disable();
         http
                 .cors()
                 .configurationSource(corsConfigurationSource());
@@ -55,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/users/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
 //                .anyRequest().authenticated();
                 .anyRequest().permitAll();
