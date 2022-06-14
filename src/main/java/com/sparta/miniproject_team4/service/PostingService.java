@@ -18,19 +18,19 @@ public class PostingService {
 
     //포스팅 글 작성
     @Transactional
-    public Posting createPosting(PostingDto postingDto, Long email){
+    public Posting createPosting(PostingDto postingDto, Long userId){
         String textCheck = postingDto.getText();
 //        String image = postingDto.getImage();
         String faceCheck = postingDto.getFace();
 //      텍스트,페이스 빈칸인지 확인
         if (textCheck.contains("script")|| textCheck.contains("<")||textCheck.contains(">")){
-            Posting posting = new Posting(postingDto, email);
+            Posting posting = new Posting(postingDto, userId);
             postingRepository.save(posting);
         } if (faceCheck.contains("script")||faceCheck.contains("<")||faceCheck.contains(">")){
-            Posting posting = new Posting(postingDto,email);
+            Posting posting = new Posting(postingDto,userId);
             postingRepository.save(posting);
         }
-        Posting posting = new Posting(postingDto, email);
+        Posting posting = new Posting(postingDto, userId);
         postingRepository.save(posting);
         return posting;
     }
