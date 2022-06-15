@@ -10,6 +10,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,9 +24,14 @@ public class PostingController {
     @PostMapping("/api/posting")
     public Posting createPosting(@RequestBody PostingDto postingDto,
                                     @AuthenticationPrincipal UserDetailsImpl userDetails){
-        Long userId = userDetails.getUser().getId();
-        Posting posting = postingService.createPosting(postingDto, userId);
-        return posting;
+        if (userDetails == null){
+            throw new NullPointerException("로그인 후 사용 가능합니다");
+        }else {
+            Long userId = userDetails.getUser().getId();
+            Posting posting = postingService.createPosting(postingDto, userId);
+            return posting;
+        }
+
     }
 
     // 포스팅 전체 조회
@@ -53,7 +60,14 @@ public class PostingController {
 
     // 포스팅 수정
     @PutMapping("/api/posting/{id}")
-    public Long updatePosting(@PathVariable Long id, @RequestBody PostingDto postingDto){
+    public Long updatePosting(@PathVariable Long id, @RequestBody PostingDto postingDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long currentUserId = userDetails.getUser().getId();
+        Optional<Posting> posting = postingRepository.findById(id);
+        Long postingUserId = posting.get().getUserId();
+
+        if (!Objects.equals(currentUserId, postingUserId)){
+            throw new NullPointerException("본인이 작성한 글만 수정이 가능합니다.");
+        }
         postingService.update(id, postingDto);
         return id;
     }
@@ -61,7 +75,14 @@ public class PostingController {
 
     // 포스팅삭제
     @DeleteMapping("/api/posting/{id}")
-    public Long deletePosting(@PathVariable Long id){
+    public Long deletePosting(@PathVariable Long id,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long currentUserId = userDetails.getUser().getId();
+        Optional<Posting> posting = postingRepository.findById(id);
+        Long postingUserId = posting.get().getUserId();
+
+        if (!Objects.equals(currentUserId, postingUserId)){
+            throw new NullPointerException("본인이 작성한 글만 삭제 가능합니다.");
+        }
         postingRepository.deleteById(id);
         return id;
     }
