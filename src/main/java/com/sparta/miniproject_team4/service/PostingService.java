@@ -39,7 +39,7 @@ public class PostingService {
     @Transactional
     public void update(Long id, PostingDto postingDto) {
         Posting posting = postingRepository.findById(id).orElseThrow(
-                ()-> new NullPointerException("아이디가 존재하지 않습니다."));
+                ()-> new NullPointerException("게시글이 존재하지 않습니다."));
         posting.update(postingDto);
     }
 
