@@ -30,15 +30,19 @@ public class Posting extends Timestamped{
     @Column(nullable = false)
     private Long userId;
 
+    @Column(nullable = false)
+    private String email;
+
 //    @ManyToOne
 //    @JoinColumn(name = "USERS_EMAIL")
 //    private Users users;
 
-    public Posting(PostingDto postingDto, Long userId){
+    public Posting(PostingDto postingDto, Long userId, String email){
         this.text = postingDto.getText();
         this.image = postingDto.getImage();
         this.face = postingDto.getFace();
         this.userId = userId;
+        this.email=email;
     }
     public void update(PostingDto postingDto){
         this.text = postingDto.getText();
