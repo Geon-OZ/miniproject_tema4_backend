@@ -28,7 +28,8 @@ public class PostingController {
             throw new NullPointerException("로그인 후 사용 가능합니다");
         }else {
             Long userId = userDetails.getUser().getId();
-            Posting posting = postingService.createPosting(postingDto, userId);
+            String nickname = userDetails.getUser().getNickname();
+            Posting posting = postingService.createPosting(postingDto, userId, nickname);
             return posting;
         }
 

@@ -31,18 +31,18 @@ public class Posting extends Timestamped{
     private Long userId;
 
     @Column(nullable = false)
-    private String email;
+    private String nickname;
 
 //    @ManyToOne
 //    @JoinColumn(name = "USERS_EMAIL")
 //    private Users users;
 
-    public Posting(PostingDto postingDto, Long userId, String email){
+    public Posting(PostingDto postingDto, Long userId, String nickname){
         this.text = postingDto.getText();
         this.image = postingDto.getImage();
         this.face = postingDto.getFace();
         this.userId = userId;
-        this.email=email;
+        this.nickname=nickname;
     }
     public void update(PostingDto postingDto){
         this.text = postingDto.getText();
