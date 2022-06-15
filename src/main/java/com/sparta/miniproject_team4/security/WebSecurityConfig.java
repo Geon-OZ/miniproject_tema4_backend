@@ -56,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/images/**").permitAll()
                 // css 폴더를 login 없이 허용
                 .antMatchers("/css/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/users/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
@@ -69,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // [로그아웃 기능]
         http.logout()
                 // 로그아웃 요청 처리 URL
-                .logoutUrl("/users/logout")
+                .logoutUrl("/api/users/logout")
                 .logoutSuccessHandler(restLogoutSuccessHandler)
                 .permitAll();
         http.exceptionHandling();
@@ -78,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected RestUsernamePasswordAuthenticationFilter getAuthenticationFilter() {
         RestUsernamePasswordAuthenticationFilter authFilter = new RestUsernamePasswordAuthenticationFilter();
         try {
-            authFilter.setFilterProcessesUrl("/users/login"); // 로그인에 대한 POST 요청을 받을 url을 정의합니다. 해당 코드가 없으면 정상적으로 작동하지 않습니다.
+            authFilter.setFilterProcessesUrl("/api/users/login"); // 로그인에 대한 POST 요청을 받을 url을 정의합니다. 해당 코드가 없으면 정상적으로 작동하지 않습니다.
             authFilter.setUsernameParameter("email");
             authFilter.setPasswordParameter("password");
             authFilter.setAuthenticationManager(this.authenticationManagerBean());
