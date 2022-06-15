@@ -27,7 +27,7 @@ public class UserService {
 
         if (foundemail.isPresent()){
             err_msg = "중복된 Email이 존재합니다.";
-            result=false;
+            result = false;
             return new ResponseDto(result, err_msg, email);
         }
         if (foundnickname.isPresent()){

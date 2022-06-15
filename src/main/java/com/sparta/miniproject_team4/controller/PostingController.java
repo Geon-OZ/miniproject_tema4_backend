@@ -34,7 +34,7 @@ public class PostingController {
     }
 
     // 포스팅  디테일 조회
-    @GetMapping("/api//posting/{id}")
+    @GetMapping("/api/posting/{id}")
     public Posting getPosting(@PathVariable Long id){
         Posting posting = postingRepository.findById(id).orElseThrow(
                 ()->new NullPointerException("해당글이 존재하지 않습니다.")
@@ -44,7 +44,7 @@ public class PostingController {
 
 
     // 마이페이지 포스팅 조회
-    @GetMapping("/api//myposting/{userId}")
+    @GetMapping("/api/myposting/{userId}")
     public List<Posting> getMyPosting(@PathVariable Long userId){
 
         return postingRepository.findAllByUserId(userId);
@@ -52,7 +52,7 @@ public class PostingController {
 
 
     // 포스팅 수정
-    @PutMapping("/api//posting/{id}")
+    @PutMapping("/api/posting/{id}")
     public Long updatePosting(@PathVariable Long id, @RequestBody PostingDto postingDto){
         postingService.update(id, postingDto);
         return id;
@@ -60,7 +60,7 @@ public class PostingController {
 
 
     // 포스팅삭제
-    @DeleteMapping("/api//posting/{id}")
+    @DeleteMapping("/api/posting/{id}")
     public Long deletePosting(@PathVariable Long id){
         postingRepository.deleteById(id);
         return id;
