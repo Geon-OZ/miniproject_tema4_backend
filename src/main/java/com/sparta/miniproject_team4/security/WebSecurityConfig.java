@@ -94,11 +94,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
+//        configuration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
+        configuration.addAllowedOrigin("http://miniproject-mydiary.s3-website.ap-northeast-2.amazonaws.com/"); // local 테스트 시
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");
-        configuration.addAllowedOriginPattern("http://localhost:3000"); // 배포 전 모두 허용
+//        configuration.addAllowedOriginPattern("http://localhost:3000"); // 배포 전 모두 허용
+        configuration.addAllowedOriginPattern("http://miniproject-mydiary.s3-website.ap-northeast-2.amazonaws.com/"); // 배포 전 모두 허용
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
